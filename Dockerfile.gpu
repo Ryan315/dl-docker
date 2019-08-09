@@ -1,0 +1,32 @@
+ARG UBUNTU_VERSION=18.04
+ARG CUDA_VERSION=10.1
+
+FROM nvidia/cuda:${CUDA_VERSION}-cudnn7-devel-ubuntu${UBUNTU_VERSION}
+
+ARG PIP=pip3
+
+RUN apt-get update && apt-get install -y \
+        python3 \
+        python3-pip \
+        git \
+        zsh \
+        vim \
+        curl \
+        libjpeg-dev \
+        libpng-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+# config oh my zsh
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+RUN ${PIP} --no-cache-dir install --upgrade \
+    pip \
+    setuptools
+
+RUN ${PIP} install torch torchvision
+
+# # Expose Ports for TensorBoard (6006), Ipython (8888)
+# EXPOSE 6006 8888
+
+WORKDIR "/root"
+CMD ["/bin/zsh"]
