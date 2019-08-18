@@ -1,0 +1,17 @@
+version: '2.3'
+services:
+  ryan_pytorch:
+    image:
+      ryan_pytorch_gpu:latest
+    runtime:
+      nvidia
+    volumes:
+      - "/media/ryan/Data1/zData/Dataset/data:/root/Data"
+    # ports:
+    #   - "22:22"
+    shm_size:
+      '10gb'
+    # environment:
+    #   - NVIDIA_VISIBLE_DEVICES=all
+    # command:
+    #   nvidia-smi
