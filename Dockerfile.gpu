@@ -28,5 +28,7 @@ RUN ${PIP} install torch torchvision
 # # Expose Ports for TensorBoard (6006), Ipython (8888)
 # EXPOSE 6006 8888
 
+RUN ${PIP} install adabound
+
 WORKDIR "/root"
 CMD ["/bin/zsh"]

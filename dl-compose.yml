@@ -6,7 +6,7 @@ services:
     runtime:
       nvidia
     volumes:
-      - "/media/ryan/Data1/zData/Dataset/data:/root/Data"
+      - "/media/ryan/Data4/zData/Dataset/data:/root/Data"
     # ports:
     #   - "22:22"
     shm_size:
