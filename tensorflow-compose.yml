@@ -2,18 +2,16 @@ version: '2.3'
 services:
   ryan_pytorch:
     image:
-      ryan_pytorch_gpu:latest
+      ryan_tensorflow_gpu:latest
     runtime:
       nvidia
     volumes:
-      # - "/media/ryan/Data1/zData/Dataset/data2/:/root/Data"
-      - "/media/ryan/Data1/zData/Dataset/data_fewshot_no/:/root/Data"
-      - "/tmp/.X11-unix to /tmp/.X11-unix"
+      - "/media/ryan/Data1/zData/Dataset/data_for_DSN_256:/root/Data"
+      - "/tmp:/tmp"
     # ports:
     #   - "22:22"
     shm_size:
       '10gb'
-
     # environment:
     #   - NVIDIA_VISIBLE_DEVICES=all
     # command:
