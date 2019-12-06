@@ -15,9 +15,14 @@ RUN apt-get update --fix-missing && apt-get install -y \
         zsh \
         vim \
         curl \
+        openssh-server \
         libjpeg-dev \
         libpng-dev && \
     rm -rf /var/lib/apt/lists/*
+
+# config ssh
+RUN mkdir -p /var/run/sshd /root/.ssh
+RUN sed -ri 's#session    required     pam_loginuid.so#session    required     pam_loginuid.so#g' /etc/pam.d/sshd
 
 # config oh my zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -35,16 +40,16 @@ RUN ${PIP} --no-cache-dir install --upgrade \
     pip \
     setuptools
 
-RUN ${PIP} install torch torchvision
+RUN ${PIP} install matplotlib sklearn
+RUN ${PIP} install torch torchvision 
 
 RUN conda install tsnecuda cuda100 -c cannylab
 
-# # Expose Ports for TensorBoard (6006), Ipython (8888)
-# EXPOSE 6006 8888
+# # Expose Ports for TensorBoard (6006), Ipython (8888), ssh (22) 
+EXPOSE 22
 
-RUN ${PIP} install adabound \
-    matplotlib \
-    sklearn
+ADD authorized_keys /root/.ssh/authorized_keys
+ADD run.sh /run.sh
+RUN chmod 755 /run.sh
 
-WORKDIR "/root"
-CMD ["/bin/zsh"]
+CMD ["/run.sh"]
