@@ -40,8 +40,8 @@ RUN ${PIP} --no-cache-dir install --upgrade \
     pip \
     setuptools
 
+RUN ${PIP} install torch==1.0.1 torchvision==0.2.1
 RUN ${PIP} install matplotlib sklearn
-RUN ${PIP} install torch torchvision 
 
 RUN conda install tsnecuda cuda100 -c cannylab
 
