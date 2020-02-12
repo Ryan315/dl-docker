@@ -1,3 +1,3 @@
-/usr/sbin/sshd -D &
+cat ~/.ssh/id_rsa.pub > /.ssh/authorized_keys
 
-cat /root/.ssh/id_rsa.pub > ./authorized_keys
+service ssh start
