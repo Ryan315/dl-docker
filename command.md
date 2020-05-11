@@ -21,6 +21,7 @@ docker create --name test -it  \
 -v /home/ryan/Documents/Data:/root/data \
 ryan_torch:latest \
 /bin/zsh
+<<<<<<< HEAD
 
 docker create --name jianzhe_new -it  \
 -p 10087:22 \
@@ -33,3 +34,5 @@ docker create --name jianzhe_new -it  \
 -v /mnt/DataServer/tianze/MCD/zData/Dataset:/home/Data \
 ryan/dl-docker:gpu \
 /bin/zsh
+=======
+>>>>>>> bc406da2b89e77475ed1ed3026fd1c0afc39c945
