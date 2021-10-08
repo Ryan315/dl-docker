@@ -1,5 +1,5 @@
 ARG UBUNTU_VERSION=18.04
-ARG CUDA_VERSION=10.0
+ARG CUDA_VERSION=10.2
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn7-devel-ubuntu${UBUNTU_VERSION}
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -46,23 +46,19 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh
 # RUN chmod 755 /home/opencv_3.4.4.sh
 # RUN sh /home/opencv_3.4.4.sh
 
-# detectron2 pytorch
-# RUN ${PIP} install -U torch==1.4+cu100 torchvision==0.5+cu100 -f https://download.pytorch.org/whl/torch_stable.html
-# RUN ${PIP} install cython pyyaml==5.1
-# RUN ${PIP} install -U 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI'
-# RUN ${PIP} install detectron2 -f https://dl.fbaipublicfiles.com/detectron2/wheels/cu100/index.html
-
 # other pip packages
-RUN ${PIP} install tensorboard matplotlib sklearn tensorboardX torch
+# RUN ${PIP} install tensorboard matplotlib sklearn tensorboardX
+# RUN ${PIP} install torch torchvision torchnet
+# RUN ${PIP} install pillow tqdm
 
 # --------------------------------------------------------------------------------------------
 # ignore output warnings
 RUN export NO_AT_BRIDGE=1
 
 # VSCode server
-RUN curl -fsSL https://code-server.dev/install.sh | sh -s -- --dry-run
-RUN curl -fsSL https://code-server.dev/install.sh | sh
-RUN systemctl enable --now code-server@root
+# RUN curl -fsSL https://code-server.dev/install.sh | sh -s -- --dry-run
+# RUN curl -fsSL https://code-server.dev/install.sh | sh
+# RUN systemctl enable --now code-server@root
 
 
 # --------------------------------------------------------------------------------------------

@@ -1,0 +1,5 @@
+matplotlib
+python-mathpix
+cnocr
+cnstd
+tensorflow-gpu==1.14
