@@ -10,29 +10,17 @@ docker build -f /home/ryan/Documents/GitHub/dl-docker/Dockerfile.gpu -t ryan_pyt
 
 docker build -f /home/ryan/Documents/GitHub/dl-docker/Dockerfile.cpu -t ryan_python .
 
-docker create --name test -it  \
--p 6006:6006 \
---gpus all \
---env="DISPLAY" \
+docker create --name <CONTAINER NAME> -it \
+-m 8gb \
+-e DISPLAY=unix$DISPLAY \
 -e GDK_SCALE \
 -e GDK_DPI_SCALE \
+-v /dev/video0:/dev/video0 \
+-v /dev/video1:/dev/video1 \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
--v /home/ryan/Documents/GitHub:/root/code \
--v /home/ryan/Documents/Data:/root/data \
-ryan_torch:latest \
+-v /root/Proj_code:/root/code \
+-v /mnt/d/Data:/root/data \
+--gpus all \
+<IMAGE ID> \
 /bin/zsh
-<<<<<<< HEAD
 
-docker create --name jianzhe_new -it  \
--p 10087:22 \
---gpus all \
---env="DISPLAY" \
--e GDK_SCALE \
--e GDK_DPI_SCALE \
--v /tmp/.X11-unix:/tmp/.X11-unix \
--v /home/jianzhe/Code:/home/Code \
--v /mnt/DataServer/tianze/MCD/zData/Dataset:/home/Data \
-ryan/dl-docker:gpu \
-/bin/zsh
-=======
->>>>>>> bc406da2b89e77475ed1ed3026fd1c0afc39c945
