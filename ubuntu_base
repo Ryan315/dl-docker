@@ -1,0 +1,54 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV LANG=en_US.UTF-8
+ENV PROJECT_DIR=/root/code
+
+# Install essential packages and Emacs
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    ca-certificates \
+    cmake \
+    curl \
+    git \
+    locales \
+    software-properties-common \
+    wget \
+    zsh \
+    vim \
+    python3-dev \
+    python3-distutils \
+    python3-venv \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/* \
+# Configure locale
+    && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
+    && locale-gen
+
+
+# Install Starship prompt
+RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
+
+# Install fzf
+RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
+    ~/.fzf/install --all
+
+# Install essential Python packages
+COPY requirements.txt /tmp/
+RUN pip3 install --no-cache-dir -r /tmp/requirements.txt && \
+    rm /tmp/requirements.txt
+
+# Copy configuration files
+COPY configs/.zshrc /root/
+COPY configs/.starship.toml /root/
+
+# Create project directory
+RUN mkdir -p $PROJECT_DIR
+
+# Set zsh as default shell
+RUN chsh -s /bin/zsh root
+
+WORKDIR $PROJECT_DIR
+
+# Set default command to zsh
+CMD ["zsh"]
