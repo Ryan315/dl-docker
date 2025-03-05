@@ -73,7 +73,7 @@ RUN $PIP install -r requirements.txt
 
 ##--------------------------------------------------------------------------------
 ##--- Copying local configuration files
-COPY ./configurations/ $HOME
+COPY ./configs/ $HOME
 
 ##--- Ignore output warnings
 RUN export NO_AT_BRIDGE=1
